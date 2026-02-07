@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Samira ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-pink: #ff4d6d;
@@ -14,39 +15,56 @@
         body {
             background-color: var(--soft-bg);
             margin: 0;
-            overflow: hidden; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden; 
+            font-family: 'Quicksand', sans-serif;
             display: flex;
-            flex-direction: column; /* Allows footer to sit at bottom */
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             touch-action: manipulation;
+            padding-top: 100px; /* Space for the funky header */
+            padding-bottom: 50px;
         }
+
+        /* --- Funky Header Countdown --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 77, 109, 0.4);
+            z-index: 100;
+            color: var(--primary-pink);
+            font-family: 'Pacifico', cursive;
+            border-bottom: 3px dashed var(--primary-pink);
+        }
+
+        #timer {
+            display: inline-block;
+            background: var(--primary-pink);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+            animation: pulse 1.5s infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 77, 109, 0.8); }
+            100% { transform: scale(1); }
+        }
+
+        .header-emoji { display: inline-block; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
         /* --- Lovely Background Theme --- */
-        .butterfly {
-            position: absolute;
-            width: 18px; height: 18px;
-            background: rgba(255, 105, 180, 0.4);
-            border-radius: 50% 50% 0 50%;
-            transform: rotate(45deg);
-            animation: fly 8s infinite linear;
-            z-index: 1;
-        }
-        .butterfly::after {
-            content: ''; position: absolute;
-            width: 18px; height: 18px;
-            background: inherit; border-radius: 50% 50% 50% 0;
-            top: -9px; left: 9px;
-        }
-
-        @keyframes fly {
-            0% { transform: translate(-10vw, 100vh) rotate(45deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translate(110vw, -10vh) rotate(405deg); opacity: 0; }
-        }
-
         .heart-rain {
             position: absolute;
             top: -10%;
@@ -56,7 +74,6 @@
             z-index: 0;
             pointer-events: none;
         }
-
         @keyframes fall { to { transform: translateY(110vh); } }
 
         /* --- UI Card --- */
@@ -68,27 +85,24 @@
             box-shadow: 0 20px 50px rgba(255, 77, 109, 0.3);
             text-align: center;
             width: 85%;
-            max-width: 400px;
+            max-width: 450px;
             z-index: 10;
             position: relative;
-            overflow: hidden;
-            min-height: 400px;
         }
 
-        h1 { color: var(--text-color); font-size: 1.6rem; margin-bottom: 2rem; line-height: 1.4; min-height: 80px; }
-
+        h1 { color: var(--text-color); font-size: 1.5rem; margin-bottom: 1rem; }
+        
         .btn-container { 
             display: flex; 
             justify-content: center; 
             align-items: center;
-            gap: 60px;
-            margin-top: 20px; 
+            gap: 50px;
             min-height: 250px;
             position: relative;
         }
 
         button {
-            padding: 12px 30px;
+            padding: 12px 28px;
             font-size: 1.1rem;
             font-weight: bold;
             border: none;
@@ -97,143 +111,163 @@
             z-index: 11;
         }
 
-        #yesBtn { 
-            background: var(--primary-pink); 
-            color: white; 
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-            position: relative;
-        }
+        #yesBtn { background: var(--primary-pink); color: white; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4); }
+        #noBtn { background: #adb5bd; color: white; position: relative; transition: left 0.15s, top 0.15s; }
 
-        #noBtn { 
-            background: #adb5bd; 
-            color: white; 
-            position: relative; 
-            transition: left 0.15s ease-out, top 0.15s ease-out;
-        }
+        .hidden-section { display: none; }
 
         .photo-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 15px;
-            display: none;
-            max-height: 350px;
-            overflow-y: auto;
-            padding: 5px;
         }
+        /* Fixed image paths: removed the leading slash */
         .photo-grid img { width: 100%; border-radius: 15px; border: 3px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 
-        /* --- The Footer Dedication --- */
-        footer {
-            position: fixed;
-            bottom: 20px;
-            color: var(--text-color);
-            font-size: 0.9rem;
-            text-align: center;
-            z-index: 12;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            width: 100%;
+        .love-map, .music-section {
+            background: #fff;
+            padding: 15px;
+            border-radius: 20px;
+            margin-top: 20px;
+            text-align: left;
+            box-shadow: inset 0 0 10px rgba(255, 77, 109, 0.1);
         }
 
+        footer { margin-top: 30px; text-align: center; color: var(--text-color); font-size: 0.8rem; }
         footer b { color: var(--primary-pink); }
     </style>
 </head>
 <body>
+
+    <header id="countdownHeader">
+        <span class="header-emoji">✨</span> 
+        Together Since 16th Oct 2025: 
+        <span id="timer">0d 0h 0m</span> 
+        <span class="header-emoji">🚀</span>
+    </header>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <div id="player"></div>
 
     <div class="card" id="cardContainer">
         <h1 id="questionText">Do you love me?</h1>
-        
+        <p id="reasonText" style="font-style: italic; color: #d63384; font-size: 0.9rem;"></p>
+
         <div class="btn-container" id="buttonArea">
             <button id="yesBtn">Yes!</button>
             <button id="noBtn">No</button>
         </div>
 
-        <div id="gallery" class="photo-grid">
-            <img src="WhatsApp Image 2026-02-07 at 18.34.42.jpeg" alt="Memory 1">
-            <img src="4.jpeg" alt="Memory 2">
-            <img src="6.jpeg" alt="Memory 3">
-            <img src="5.jpeg" alt="Memory 4">
-            <img src="2.jpeg" alt="Memory 2">
-            <img src="3.jpeg" alt="Memory 3">
+        <div id="finalContent" class="hidden-section">
+            <h2>Our Memories ❤️</h2>
+            <div class="photo-grid">
+                <img src="1.jpeg" alt="Memory 1">
+                <img src="4.jpeg" alt="Memory 2">
+                <img src="3.jpeg" alt="Memory 3">
+                <img src="2.jpeg" alt="Memory 4">
+                <img src="5.jpeg" alt="Memory 5">
+                <img src="6.jpeg" alt="Memory 6">
+            </div>
+
+            <div class="love-map" style="text-align: center; padding: 20px;">
+    <h3>📍 Our Heart's Path</h3>
+    <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 400px; filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.3));">
+        <path d="M 50 100 Q 150 10 200 100 T 350 100" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-dasharray="10,5" stroke-linecap="round">
+            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="5s" repeatCount="infinite" />
+        </path>
+
+        <circle cx="50" cy="100" r="8" fill="#590d22" />
+        <text x="20" y="130" font-family="Quicksand" font-weight="bold" font-size="12" fill="#590d22">Chandanpura</text>
+        <text x="42" y="95" font-size="16">🏠</text>
+
+        <g>
+            <circle cx="200" cy="100" r="12" fill="#ff4d6d" opacity="0.2">
+                <animate attributeName="r" values="10;15;10" dur="2s" repeatCount="infinite" />
+            </circle>
+            <circle cx="200" cy="100" r="6" fill="#ff4d6d" />
+            <text x="175" y="140" font-family="Quicksand" font-weight="bold" font-size="14" fill="#ff4d6d">DC Hill</text>
+            <text x="190" y="90" font-size="20">✨</text>
+        </g>
+
+        <circle cx="350" cy="100" r="8" fill="#590d22" />
+        <text x="310" y="130" font-family="Quicksand" font-weight="bold" font-size="12" fill="#590d22">Khatunganj</text>
+        <text x="342" y="95" font-size="16">👑</text>
+
+        <text font-size="20" x="0" y="0">
+            ❤️
+            <animateMotion path="M 50 100 Q 150 10 200 100 T 350 100" dur="5s" repeatCount="infinite" />
+        </text>
+    </svg>
+    <p style="font-size: 0.85rem; color: #590d22; margin-top: 15px; font-style: italic;">
+        From my home in <b>Chandanpura</b> to yours in <b>Khatunganj</b>, <br>
+        everything changed that day at <b>DC Hill</b>.
+    </p>
+</div>
+
+            <div class="music-section">
+                <h3>🎵 Songs for Samira</h3>
+                <iframe width="100%" height="240" src="https://www.youtube.com/embed/NQp3cbSkqbo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:15px; margin-bottom:15px;"></iframe>
+                <iframe width="100%" height="240" src="https://www.youtube.com/embed/x3asqyIrVhc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:15px;"></iframe>
+            </div>
         </div>
     </div>
 
-    <footer>
-        A special gift for <b>Nusrat Samira</b> from <b>Hamdanul Hoque Katebi</b>
-    </footer>
+    <footer>A special gift for <b>Nusrat Samira</b> from <b>Hamdanul Hoque Katebi</b></footer>
 
     <script>
+        // Real-time Countdown from 16th Oct 2025
+        function updateTimer() {
+            const start = new Date('2025-10-16T00:00:00');
+            const now = new Date();
+            const diff = now - start;
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const m = Math.floor((diff / (1000 * 60)) % 60);
+            document.getElementById('timer').innerText = `${d}d ${h}h ${m}m`;
+        }
+        setInterval(updateTimer, 60000);
+        updateTimer();
+
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const questionText = document.getElementById('questionText');
-        const gallery = document.getElementById('gallery');
+        const reasonText = document.getElementById('reasonText');
+        const finalContent = document.getElementById('finalContent');
         const buttonArea = document.getElementById('buttonArea');
         
-        let player;
-        let step = 0;
+        let player, step = 0;
+        const questions = ["Do you love me?", "Will you be my Valentine?", "Do I make you smile?", "Can I keep making you happy?", "Do you think we're perfect together?", "Will you be mine forever?", "Ready to see our memories?"];
+        const reasons = ["You're my everything...", "You're my favorite person...", "You make my heart skip...", "I'll always be here...", "Perfect together since day one...", "Forever is a long time, but I want it with you...", "Let's see our journey!"];
+        const noPhrases = ["Really?", "Wait...", "Think again!", "You can't!", "Wrong button!", "Try again!"];
 
         function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0',
-                videoId: 'JHyhUWcFhWY',
+            player = new YT.Player('player', { height: '0', width: '0', videoId: 'JHyhUWcFhWY',
                 events: { 'onReady': (e) => e.target.setVolume(20) }
             });
         }
 
-        const questions = [
-            "Do you love me?",
-            "Will you be my Valentine?",
-            "Do I make you smile?",
-            "Can I keep making you happy?",
-            "Do you think we're perfect together?",
-            "Will you be mine forever?",
-            "Ready to see our memories?"
-        ]; 
-
-        const noPhrases = ["Really?", "Wait...", "Think again!", "You can't!", "Wrong button!", "I'm sad now 🥺"];
-
-        // Visuals
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-rain');
-            heart.innerHTML = ['❤️','💖','🌸','✨'][Math.floor(Math.random()*4)];
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
-        }, 400);
-
-        // Logic
         yesBtn.addEventListener('click', () => {
             if (step === 0 && player) player.playVideo(); 
-            
-            step++;
-            if (step < questions.length) {
+            if (step < questions.length - 1) {
+                step++;
                 questionText.innerText = questions[step];
-                noBtn.style.position = 'relative';
-                noBtn.style.left = 'auto';
-                noBtn.style.top = 'auto';
-                noBtn.innerText = "No";
+                reasonText.innerText = reasons[step - 1];
+                noBtn.style.position = 'relative'; noBtn.style.left = 'auto'; noBtn.style.top = 'auto'; noBtn.innerText = "No";
             } else {
-                questionText.innerText = "Our Special Memories ❤️";
-                buttonArea.style.display = 'none';
-                gallery.style.display = 'grid';
+                questionText.innerText = "Forever Yours ❤️";
+                reasonText.style.display = 'none'; buttonArea.style.display = 'none'; finalContent.style.display = 'block';
             }
         });
 
         const runAway = () => {
             noBtn.style.position = 'absolute';
-            const areaWidth = buttonArea.clientWidth;
-            const areaHeight = buttonArea.clientHeight;
+            const areaWidth = buttonArea.clientWidth, areaHeight = buttonArea.clientHeight;
             const yesRect = yesBtn.getBoundingClientRect();
             const areaRect = buttonArea.getBoundingClientRect();
 
             let newX, newY, distance;
-            const safeDistance = 100; 
+            const safeDistance = 100; // Minimum distance to prevent overlap
 
             do {
                 newX = Math.random() * (areaWidth - noBtn.offsetWidth);
@@ -253,7 +287,11 @@
         noBtn.addEventListener('mouseover', runAway);
         noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); runAway(); });
 
+        setInterval(() => {
+            const h = document.createElement('div'); h.classList.add('heart-rain'); h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw'; h.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(h); setTimeout(() => h.remove(), 5000);
+        }, 400);
     </script>
 </body>
-
 </html>
